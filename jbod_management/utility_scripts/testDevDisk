@@ -1,0 +1,20 @@
+#!/usr/bin/python36
+
+import glob, os
+from pathlib import Path
+
+def testDevDisk(sas_addr):
+    expanders = ['500093d001aae37f','500093d001aae3bf']
+    disk_path = '/dev/disk/by-path'
+    disk_sas = '5000c50085921ac1'
+    disk_sd_name = 'sdck'
+    results = glob.glob(disk_path+'/*')
+    for result in results:
+        if os.path.islink(result):
+            print("this is a symlink")
+            print('Its target is',Path(result).resolve())
+            #print('its target is',os.readlink(result))
+        print(result)
+    print(Path('/sys/block/sddm/device/scsi_generic/sg119/device/generic').resolve())
+
+testDevDisk('no matter')
