@@ -93,6 +93,8 @@ def create_external_bitmap_mount(vg='sysvg',bitmap_dir='/bitmap'):
         subprocess.call(command, shell=True)
         command = 'mkfs.ext3 /dev/mapper/sysvg-bitmap'
         subprocess.call(command, shell=True)
+        with open('/etc/fstab','a') as f:
+            f.write('/dev/mapper/sysvg-bitmap on /bitmap type ext3 (rw,relatime,stripe=64,data=ordered)\n')
     if not os.path.ismount('/bitmap'):
         command = 'mount /dev/mapper/sysvg-bitmap /bitmap'
         subprocess.call(command, shell=True)
